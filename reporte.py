@@ -18,8 +18,8 @@ print("---------ESPECIFICACIONES DE LA PC----------")
 print("################################################")
 print("\n")
 if so=='Windows':
-    so.system("systeminfo")
+    so.system("systeminfo > caracteristica.txt")
 elif so=='Linux':
-    so.system("lscpu | head -24")
+    so.system("lscpu | head -24 | tee caracteristica.txt")
 
 
