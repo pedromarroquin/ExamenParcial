@@ -1,0 +1,9 @@
+1. Entrar a modo consola: ctrl+alt+F2
+2. systemctl start ssh //iniciar control remoto
+3. ifconfig
+. Pasar un archivo de Windows(host) a Kali Linux(guest)
+	scp rutalocal root@192.168.92.128:/root/Desktop/parcial
+
+listen adress 0.0.0.0
+PermitRootLogin (prohibit-password)-->yes
+pidof [nombre del proceso]
