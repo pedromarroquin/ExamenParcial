@@ -7,11 +7,11 @@ class tiempos:
 
     def pressKey(self, key):
         if self.count==0:
-            print("La tecla",key,"se presiono:",str(datetime.today()),"",str(timeit.timeit()*1000)," ms")
+            print("La tecla",key,"se presiono:",str(datetime.today()))
         self.count=self.count+1
 
     def leaveKey(self, key):
-        print("La tecla",key,"se soltó:",str(datetime.today()),"",str(timeit.timeit()*1000)," ms")
+        print("La tecla",key,"se soltó:",str(datetime.today()))
         self.count=0
    
     def start(self):
