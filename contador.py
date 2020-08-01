@@ -3,7 +3,7 @@ import numpy as np
 
 def ContarTxt(nombre_archivo):
     matriz=[]
-    for i in range(89):
+    for i in range(83):
         matriz.append([0]*2)
 
     document_text = open(nombre_archivo,'r')
@@ -94,7 +94,6 @@ def ContarTxt(nombre_archivo):
     asignarycalcular(12,'l')
     asignarycalcular(13,'m')
     asignarycalcular(14,'n')
-    asignarycalcular(15,'ñ')
     asignarycalcular(16,'o')
     asignarycalcular(17,'p')
     asignarycalcular(18,'q')
@@ -131,27 +130,35 @@ def ContarTxt(nombre_archivo):
     asignarycalcular(67,'<')
     asignarycalcular(68,'>')
     asignarycalcular(69,"'")
-    asignarycalcular(70,'¿')
     asignarycalcular(71,'?')
     asignarycalcular(72,'|')
-    asignarycalcular(73,'°')
-    asignarycalcular(74,'¬')
     asignarycalcular(75,'!')
-    asignarycalcular(76,'¡')
     asignarycalcular(77,'}')
     asignarycalcular(78,'{')
     asignarycalcular(79,'[')
     asignarycalcular(80,']')
     asignarycalcular(81,'"')
     asignarycalcular(82,'#')
-    asignarycalcular(83,'$')
-    asignarycalcular(84,'%')
-    asignarycalcular(85,'&')
-    asignarycalcular(86,'(')
-    asignarycalcular(87,')')
-    asignarycalcular(88,'@')
+    asignarycalcular(70,'$')
+    asignarycalcular(76,'%')
+    asignarycalcular(74,'&')
+    asignarycalcular(73,'(')
+    asignarycalcular(15,')')
     #ordenando la matriz desde el mas usado al menor
     matriz=sorted(matriz, key=itemgetter(1),reverse=True)
     #creando el archivo
-    encabezado='Caracter    Repeticion'
-    np.savetxt('temp.txt',matriz, delimiter="               ",header=encabezado, fmt='%s')
+    #encabezado='Caracter    Repeticion'
+    #np.savetxt('temp.txt',matriz, delimiter="              ",header=encabezado, fmt='%s')
+    for i in range (83):
+        x=str(matriz[i][0])
+        m=str(matriz[i][1])
+        mensaje= 'El caracter ' + x +' se repite ' + m + ' veces. \n'
+        if i==0:
+            cabecera= '*********************************Reporte de Repeticiones********************************* \n'
+            archivo=open('temp.txt','w+')
+            archivo.write(cabecera+mensaje)
+            archivo.close()
+        else:
+            archivo=open('temp.txt','a')
+            archivo.write(mensaje)
+            archivo.close()
