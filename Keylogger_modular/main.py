@@ -14,4 +14,4 @@ repo_timing=report.report("press.txt")
 
 #iniciando proceso
 tiempos = timing.tiempos()
-tiempos.start()
+tiempos.start(repo_timing)
