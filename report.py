@@ -3,6 +3,7 @@ import platform
 import os
 
 
+
 class report:
      
     def __init__(self, nombre):
@@ -31,6 +32,9 @@ class report:
         elif so=='Linux':
             command="lscpu | head -24 | tee "+self.nombre
             os.system(command)
+        
+        
+        
     
     def joinFiles(self,file1,file2,newReport):
         txt1 = open(file1,"r").read()
