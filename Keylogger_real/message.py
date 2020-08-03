@@ -24,9 +24,9 @@ def sendMail(emisor,receptor,psw,nombreimg,ruta_img,ruta_txt):
     msg.attach(attach_txt)
 
     mailServer = SMTP('smtp.gmail.com',587)
-    mailServer.ehlo()
+    #mailServer.ehlo()
     mailServer.starttls()
-    mailServer.ehlo()
+    #mailServer.ehlo()
     mailServer.login(msg['From'],psw)
 
     mailServer.sendmail(msg['From'], msg['To'], msg.as_string())
