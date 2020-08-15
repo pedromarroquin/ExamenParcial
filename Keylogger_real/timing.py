@@ -6,9 +6,9 @@ import report
 import treeMap as tm
 from message import sendMail
 
-emisor = "julio.escalon.s@uni.pe"
+emisor = "sistoperativosg1@gmail.com"
 receptor = "mmesiass@uni.pe"
-psw = "JUCEESSAN98"
+psw = "grupo1sistemasoperativos"
 rutaTXT = "press.txt"
 
 class tiempos:
